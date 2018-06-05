@@ -1,0 +1,55 @@
+= get-sts-cc-git-credentials.sh
+
+
+== Description
+
+This script is used on AWS EC2 running RHEL/CentOS/Amazon Linux to `git clone` a CodeCommit repository using temporary STS credentials provided by an AWS IAM role.
+
+
+== Usage
+
+This script cannot be used stand-alone, it must be executed using the `git` command.
+
+
+=== Prerequisites:
+
+1. An EC2 instance running RHEL/CentOS/Amazon Linux;
+2. Installed `awscli`;
+3. Installed `curl`;
+4. A CodeCommit repository (e.g.: `XXX_cc_repo`);
+5. An IAM role (e.g.: `XXX_iam_role`) that has `codecommit:*` with the `allow` effect on the CodeCommit repository ARN;
+6. An appropriate IAM instance policy attached to the EC2 instance that allows `AssumeRole`;
+
+
+=== Installation steps
+
+```sh
+cd /tmp
+git clone https://github.com/riboseinc/get-sts-cc-git-credentials
+cd get-sts-cc-git-credentials
+sudo install -m 0555 -o root -g root "get-sts-cc-git-credentials.sh" "/usr/local/bin"
+```
+
+
+=== Example run after installation
+
+```sh
+git clone \
+	-c credential.UseHttpPath=true \
+	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role" \
+	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
+```
+
+Optionally you can also specify a different AWS account id (for delegation purposes):
+
+```sh
+git clone \
+	-c credential.UseHttpPath=true \
+	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role XXX_aws_accountid" \
+	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
+```
+
+
+== Contributions
+
+Feel free to open a ticket or to send a pull request.
