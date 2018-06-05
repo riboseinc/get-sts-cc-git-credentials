@@ -54,4 +54,4 @@ git clone \
 
 == Contributions
 
-Feel free to open a ticket or to send a pull request.
+Feel free to open an issue or to send a pull request.
