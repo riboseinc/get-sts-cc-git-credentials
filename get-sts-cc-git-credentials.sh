@@ -2,9 +2,7 @@
 #
 # get-sts-cc-git-credentials.sh by <ebo@>
 #
-# This script is used on AWS EC2 Linux to `git clone` a CodeCommit repository using temporary STS credentials provided by an AWS IAM role. 
-# 2) Installed awscli
-# 3) Installed curl
+# This script is used on AWS EC2 running RHEL/CentOS/Amazon Linux to `git clone` an AWS CodeCommit repository using temporary STS credentials provided by an AWS IAM role.
 
 set -ueo pipefail
 
