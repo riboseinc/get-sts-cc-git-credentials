@@ -40,7 +40,7 @@ git clone \
 	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
 ```
 
-Optionally you can also specify a different AWS account id (for delegation purposes):
+Optionally you can also specify a different AWS account id (e.g.: `XXX_aws_accountid`, for delegation purposes):
 
 ```sh
 git clone \
