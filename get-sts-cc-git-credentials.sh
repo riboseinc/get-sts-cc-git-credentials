@@ -24,7 +24,7 @@ main() {
 	[[ "$#" -lt 1 ]] && \
 		usage
 
-	for bin in aws curl timeout; do
+	for bin in aws curl; do
 		which "${bin}" >/dev/null 2>&1 || \
 			errx "cannot find '${bin}' in 'PATH=${PATH}'"
 	done
@@ -61,4 +61,3 @@ main() {
 main "$@"
 
 exit $?
-

@@ -16,18 +16,20 @@ This script cannot be used stand-alone, it must be executed using the `git` comm
 1. An EC2 instance running RHEL/CentOS/Amazon Linux;
 2. Installed `awscli`;
 3. Installed `curl`;
-4. A CodeCommit repository (e.g.: `XXX_cc_repo`);
-5. An IAM role (e.g.: `XXX_iam_role`) that has `codecommit:*` with the `allow` effect on the CodeCommit repository ARN;
-6. An appropriate IAM instance policy attached to the EC2 instance that allows `AssumeRole`;
+4. Installed `git`;
+5. A CodeCommit repository (e.g.: `XXX_cc_repo`);
+6. An IAM role (e.g.: `XXX_iam_role`) that has `codecommit:*` with the `allow` effect on the CodeCommit repository ARN;
+7. An appropriate IAM instance policy attached to the EC2 instance that allows `AssumeRole`.
 
 
 === Installation steps
 
+For the example below to work you need to install `get-sts-cc-git-credentials.sh` to `/usr/local/bin`:
+
 ```sh
 cd /tmp
 git clone https://github.com/riboseinc/get-sts-cc-git-credentials
-cd get-sts-cc-git-credentials
-sudo install -m 0555 -o root -g root "get-sts-cc-git-credentials.sh" "/usr/local/bin"
+sudo install -m 0555 -o root -g root get-sts-cc-git-credentials/get-sts-cc-git-credentials.sh /usr/local/bin
 ```
 
 
