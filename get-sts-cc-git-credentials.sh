@@ -2,7 +2,16 @@
 #
 # get-sts-cc-git-credentials.sh by <ebo@>
 #
-# This script is used on AWS EC2 running Linux to `git clone` an AWS CodeCommit repository using temporary STS credentials provided by an AWS IAM role.
+# This script is a `credential.helper` for `git` that uses temporary security credentials from an AWS IAM role provided by AWS Security Token Service (AWS STS).
+#
+# This script cannot be used stand-alone, it must be executed using the `git` command.
+#
+# Usage:
+#
+# git clone \
+#	-c credential.UseHttpPath=true \
+#	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role" \
+#	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
 
 set -ueo pipefail
 
