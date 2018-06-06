@@ -5,7 +5,7 @@
 
 To be able to clone a CodeCommit repository on an AWS EC2 instance running Linux you need security credentials or else you'll run into the following:
 
-```sh
+```console
 $ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-repo
 Cloning into 'test-repo'...
 Username for 'https://git-codecommit.us-east-1.amazonaws.com': ^C
@@ -41,14 +41,25 @@ git clone https://github.com/riboseinc/get-sts-cc-git-credentials
 sudo install -m 0555 -o root -g root get-sts-cc-git-credentials/get-sts-cc-git-credentials.sh /usr/local/bin
 ```
 
-
-=== Example run after installation
+=== Run
 
 ```sh
 git clone \
-	-c credential.UseHttpPath=true \
-	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role" \
-	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
+        -c credential.UseHttpPath=true \
+        -c credential.helper='!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role' \
+        --no-progress 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo'
+```
+
+
+=== Example run after installation
+
+```console
+$ git clone -c credential.UseHttpPath=true -c credential.helper='!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role' --no-progress 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo'
+Cloning into 'XXX_cc_repo'...
+remote: Counting objects: 344, done.
+Receiving objects: 100% (344/344), 96.25 KiB | 126.00 KiB/s, done.
+Resolving deltas: 100% (101/101), done.
+$
 ```
 
 Optionally you can also specify a different AWS account id (e.g.: `XXX_aws_accountid`) if the IAM role is delegated from another account.
@@ -56,8 +67,8 @@ Optionally you can also specify a different AWS account id (e.g.: `XXX_aws_accou
 ```sh
 git clone \
 	-c credential.UseHttpPath=true \
-	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role XXX_aws_accountid" \
-	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
+	-c credential.helper='!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role XXX_aws_accountid' \
+	--no-progress 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo'
 ```
 
 
