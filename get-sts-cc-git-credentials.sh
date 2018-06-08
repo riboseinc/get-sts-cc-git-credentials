@@ -24,7 +24,7 @@ errx() {
 }
 
 usage() {
-	echo -e "${__progname} <IAM role> [AWS account id]" >&2
+	echo -e "${__progname}: <IAM role> [AWS account id]" >&2
 
 	exit 1
 }
