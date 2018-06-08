@@ -41,7 +41,7 @@ main() {
 	local -r iamrole="$1"
 	local -r metadataurl="http://169.254.169.254/latest/dynamic/instance-identity/document"
 
-	if [[ "$#" -ge 2 ]]; then
+	if [[ "$#" -ge 3 ]]; then
 		local -r awsaccount="$2"
 	else
 		local -r awsaccount="$(curl -s "${metadataurl}" | \
