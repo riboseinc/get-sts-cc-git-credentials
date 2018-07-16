@@ -2,15 +2,20 @@
 #
 # get-sts-cc-git-credentials.sh by <ebo@>
 #
-# This script is a `credential.helper` for `git` that uses temporary security credentials from an AWS IAM role provided by AWS Security Token Service (AWS STS).
+# This script is a 'credential.helper' for 'git' that uses temporary security credentials from an AWS IAM role provided by AWS Security Token Service (AWS STS).
 #
-# This script cannot be used stand-alone, it must be executed using the `git` command.
+# This script cannot be used stand-alone, it must be executed using the 'git' command.
 #
-# Usage:
-#
+# Usage (if the IAM role is in the same AWS account):
 # git clone \
 #	-c credential.UseHttpPath=true \
 #	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role" \
+#	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
+#
+# Usage (if the IAM role is not in the same AWS account):
+# git clone \
+#	-c credential.UseHttpPath=true \
+#	-c credential.helper="!/usr/local/bin/get-sts-cc-git-credentials.sh XXX_iam_role XXX_aws_accountid" \
 #	--no-progress "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/XXX_cc_repo"
 
 set -ueo pipefail
@@ -39,11 +44,11 @@ main() {
 	done
 
 	local -r iamrole="$1"
-	local -r metadataurl="http://169.254.169.254/latest/dynamic/instance-identity/document"
 
 	if [[ "$#" -ge 3 ]]; then
 		local -r awsaccount="$2"
 	else
+		local -r metadataurl="http://169.254.169.254/latest/dynamic/instance-identity/document"
 		local -r awsaccount="$(curl -s "${metadataurl}" | \
 			awk '/accountId/ { print $3 }' | \
 			cut -d '"' -f 2)"
